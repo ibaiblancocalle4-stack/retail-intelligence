@@ -11,14 +11,17 @@ st.sidebar.markdown("---")
 
 # --- SECCIÓN CHATBOT SIMULADO ---
 st.sidebar.subheader("Pregunta a la IA")
-pregunta = st.sidebar.text_input("Ej: ¿Quién es el mejor empleado?")
+pregunta = st.sidebar.text_input("Ej: ¿Cuál es el producto estrella?")
 if pregunta:
     if "empleado" in pregunta.lower():
-        st.sidebar.success("IA: El mejor empleado hoy es **Jon (Algorta)** con un 98% de eficiencia.")
+        st.sidebar.success("IA: El mejor empleado hoy es **Jon (Algorta)**.")
     elif "stock" in pregunta.lower():
-        st.sidebar.warning("IA: Alerta, poco stock de **Cerveza** en Casco Viejo.")
+        st.sidebar.warning("IA: Stock bajo en **Bebidas Energéticas**.")
+    elif "producto" in pregunta.lower() or "seller" in pregunta.lower():
+        res = "Croqueta de Jamón" if sector == "Hostelería" else "Zapatilla Running Pro"
+        st.sidebar.info(f"IA: El Best Seller actual es: **{res}**")
     else:
-        st.sidebar.info("IA: Estoy analizando los datos en tiempo real...")
+        st.sidebar.info("IA: Analizando tendencias de mercado...")
 
 # --- LÓGICA DE DATOS ---
 if sector == "Hostelería":
@@ -27,37 +30,8 @@ if sector == "Hostelería":
         'Local': ['Las Arenas', 'Algorta', 'Puerto Viejo', 'Neguri', 'Casco Viejo'],
         'Ventas (€)': [1450, 1100, 2300, 980, 1850],
         'Stock Almacén (%)': [80, 45, 90, 20, 65],
-        'Mejor Empleado': ['Miren', 'Jon', 'Ane', 'Gorka', 'Iker']
+        'Mejor Empleado': ['Miren', 'Jon', 'Ane', 'Gorka', 'Iker'],
+        'Best Seller': ['Pintxo Tortilla', 'Croqueta Jamón', 'Raba Pelayo', 'Caña Master', 'Pintxo Txuleta']
     })
-    color_bar = "Local"
-else:
-    st.title("👟 IA Smart Retail - Sector Deportes")
-    df = pd.DataFrame({
-        'Local': ['Bilbao Gran Vía', 'Megapark', 'Artea', 'Durango', 'Basauri'],
-        'Ventas (€)': [12000, 18500, 9500, 4200, 7800],
-        'Stock Almacén (%)': [30, 75, 40, 10, 55],
-        'Mejor Empleado': ['Lander', 'Nerea', 'Mikel', 'Elena', 'Peio']
-    })
-    color_bar = "Stock Almacén (%)"
-
-# --- DISEÑO DE DASHBOARD ---
-col1, col2 = st.columns([2, 1])
-
-with col1:
-    st.subheader("Gráfico de Rendimiento")
-    fig = px.bar(df, x='Local', y='Ventas (€)', color=color_bar, template="plotly_dark")
-    st.plotly_chart(fig, use_container_width=True)
-
-with col2:
-    st.subheader("Estado del Almacén")
-    for index, row in df.iterrows():
-        nivel = row['Stock Almacén (%)']
-        if nivel < 30:
-            st.error(f"{row['Local']}: {nivel}% (CRÍTICO)")
-        else:
-            st.gauge = st.progress(nivel/100)
-            st.caption(f"{row['Local']}: {nivel}%")
-
-st.markdown("---")
-st.subheader("🏆 Ranking de Empleados (Eficiencia IA)")
-st.table(df[['Local', 'Mejor Empleado', 'Ventas (€)']].sort_values(by='Ventas (€)', ascending=False))
+    prod_estrella = "Raba Pelayo"
+    color_bar = "
