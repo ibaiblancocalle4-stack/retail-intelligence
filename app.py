@@ -9,31 +9,36 @@ st.sidebar.title("🤖 IA Management")
 sector = st.sidebar.selectbox("Selecciona el Sector:", ["Hostelería", "Retail (Intersport)"])
 st.sidebar.markdown("---")
 
-# --- CHATBOT SIMULADO MEJORADO ---
+# --- CHATBOT ULTRA-DETALLADO ---
 st.sidebar.subheader("Pregunta a la IA")
-pregunta = st.sidebar.text_input("Ej: ¿Qué venderemos mañana?")
+pregunta = st.sidebar.text_input("Ej: ¿Cuál es la zapatilla más vendida?")
 
 if pregunta:
     p_low = pregunta.lower()
     
-    # Respuesta para Predicciones (Mañana/Futuro)
-    if "mañana" in p_low or "venderá" in p_low or "predic" in p_low:
-        if sector == "Hostelería":
-            st.sidebar.info("IA: Mañana es jueves en Bilbao. Preveo un aumento del 15% en **Pintxos de Tortilla** debido al 'Afterwork'.")
+    # Respuesta Detallada para Retail (Running)
+    if "zapatilla" in p_low or "running" in p_low or "marca" in p_low:
+        if sector == "Retail (Intersport)":
+            st.sidebar.info("""
+            **IA Reporte Running:**
+            * **Modelo:** Pegasus 40
+            * **Marca:** Nike
+            * **Talla más vendida:** 42.5 (Hombre) / 38 (Mujer)
+            * **Tendencia:** Alta rotación en Bilbao Gran Vía.
+            """)
         else:
-            st.sidebar.info("IA: Previsión para mañana: Se venderán unas **15-20 Botas de Monte** en Durango debido al aviso de nieve en el Anboto.")
-    
-    # Respuesta para Best Sellers y Botas
-    elif "estrella" in p_low or "seller" in p_low or "vende" in p_low or "botas" in p_low:
-        res = "Croqueta de Jamón" if sector == "Hostelería" else "Zapatilla Running Pro y Botas de Monte"
-        st.sidebar.info(f"IA: El producto top ahora mismo es: **{res}**")
-    
-    # Respuesta para Empleados
-    elif "empleado" in p_low or "quién" in p_low:
-        st.sidebar.success("IA: El mejor empleado hoy es **Jon** (Hostelería) o **Nerea** (Retail).")
-    
+            st.sidebar.warning("IA: Esa consulta es para el sector Retail. En Hostelería, el producto top es la Croqueta.")
+
+    # Respuesta para Tallas
+    elif "talla" in p_low:
+        st.sidebar.info("IA: El 65% de tus ventas de calzado se concentran entre las tallas **41 y 44**.")
+
+    # Respuesta para Predicciones
+    elif "mañana" in p_low or "venderá" in p_low:
+        st.sidebar.info("IA: Previsión: 15-20 **Nike Pegasus** en Megapark por la promoción de running.")
+
     else:
-        st.sidebar.info("IA: Estoy procesando tu consulta con los datos históricos del grupo...")
+        st.sidebar.info("IA: Consultando base de datos de inventario...")
 
 # --- LÓGICA DE DATOS ---
 if sector == "Hostelería":
