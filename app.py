@@ -9,20 +9,31 @@ st.sidebar.title("🤖 IA Management")
 sector = st.sidebar.selectbox("Selecciona el Sector:", ["Hostelería", "Retail (Intersport)"])
 st.sidebar.markdown("---")
 
-# --- CHATBOT SIMULADO ---
+# --- CHATBOT SIMULADO MEJORADO ---
 st.sidebar.subheader("Pregunta a la IA")
-pregunta = st.sidebar.text_input("Ej: ¿Cuál es el producto estrella?")
+pregunta = st.sidebar.text_input("Ej: ¿Qué venderemos mañana?")
+
 if pregunta:
     p_low = pregunta.lower()
-    if "estrella" in p_low or "seller" in p_low or "vende" in p_low:
-        res = "Croqueta de Jamón" if sector == "Hostelería" else "Zapatilla Running Pro"
-        st.sidebar.info(f"IA: El Best Seller actual es **{res}**")
-    elif "empleado" in p_low:
-        st.sidebar.success("IA: El mejor empleado hoy es **Jon (Algorta)**.")
-    elif "stock" in p_low:
-        st.sidebar.warning("IA: Stock bajo detectado en **Bebidas/Accesorios**.")
+    
+    # Respuesta para Predicciones (Mañana/Futuro)
+    if "mañana" in p_low or "venderá" in p_low or "predic" in p_low:
+        if sector == "Hostelería":
+            st.sidebar.info("IA: Mañana es jueves en Bilbao. Preveo un aumento del 15% en **Pintxos de Tortilla** debido al 'Afterwork'.")
+        else:
+            st.sidebar.info("IA: Previsión para mañana: Se venderán unas **15-20 Botas de Monte** en Durango debido al aviso de nieve en el Anboto.")
+    
+    # Respuesta para Best Sellers y Botas
+    elif "estrella" in p_low or "seller" in p_low or "vende" in p_low or "botas" in p_low:
+        res = "Croqueta de Jamón" if sector == "Hostelería" else "Zapatilla Running Pro y Botas de Monte"
+        st.sidebar.info(f"IA: El producto top ahora mismo es: **{res}**")
+    
+    # Respuesta para Empleados
+    elif "empleado" in p_low or "quién" in p_low:
+        st.sidebar.success("IA: El mejor empleado hoy es **Jon** (Hostelería) o **Nerea** (Retail).")
+    
     else:
-        st.sidebar.info("IA: Analizando datos en tiempo real...")
+        st.sidebar.info("IA: Estoy procesando tu consulta con los datos históricos del grupo...")
 
 # --- LÓGICA DE DATOS ---
 if sector == "Hostelería":
