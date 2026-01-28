@@ -9,37 +9,44 @@ st.sidebar.title("🤖 IA Management")
 sector = st.sidebar.selectbox("Selecciona el Sector:", ["Hostelería", "Retail (Intersport)"])
 st.sidebar.markdown("---")
 
-# --- CHATBOT ULTRA-DETALLADO ---
+# --- CHATBOT ULTRA-DETALLADO (INCLUYE INFANTIL) ---
 st.sidebar.subheader("Pregunta a la IA")
-pregunta = st.sidebar.text_input("Ej: ¿Cuál es la zapatilla más vendida?")
+pregunta = st.sidebar.text_input("Ej: ¿Qué tallas infantiles se venden?")
 
 if pregunta:
     p_low = pregunta.lower()
     
-    # Respuesta Detallada para Retail (Running)
+    # Respuesta Detallada para Retail (Running y Marcas)
     if "zapatilla" in p_low or "running" in p_low or "marca" in p_low:
         if sector == "Retail (Intersport)":
             st.sidebar.info("""
             **IA Reporte Running:**
-            * **Modelo:** Pegasus 40
-            * **Marca:** Nike
-            * **Talla más vendida:** 42.5 (Hombre) / 38 (Mujer)
-            * **Tendencia:** Alta rotación en Bilbao Gran Vía.
+            * **Top Adulto:** Nike Pegasus 40 (Talla 42.5)
+            * **Top Infantil:** Adidas Tensaur (Talla 32-34)
+            * **Marca Líder:** Nike y Adidas (60% del mercado local)
             """)
         else:
-            st.sidebar.warning("IA: Esa consulta es para el sector Retail. En Hostelería, el producto top es la Croqueta.")
+            st.sidebar.warning("IA: Cambia al sector Retail para ver datos de calzado.")
 
-    # Respuesta para Tallas
-    elif "talla" in p_low:
-        st.sidebar.info("IA: El 65% de tus ventas de calzado se concentran entre las tallas **41 y 44**.")
+    # Respuesta Específica para Tallas (Incluyendo Infantil)
+    elif "talla" in p_low or "infantil" in p_low or "niño" in p_low:
+        if sector == "Retail (Intersport)":
+            st.sidebar.success("""
+            **Análisis de Tallas IA:**
+            * **Infantil:** El 70% de las ventas son tallas **28 a 35**.
+            * **Adulto Hombre:** Talla estrella **42-43**.
+            * **Adulto Mujer:** Talla estrella **38-39**.
+            * *Nota: Las tallas infantiles suben un 40% en septiembre (Vuelta al Cole).*
+            """)
+        else:
+            st.sidebar.info("IA: En hostelería no gestionamos tallas, pero el 'Menú Infantil' es el 15% de tus ventas.")
 
     # Respuesta para Predicciones
     elif "mañana" in p_low or "venderá" in p_low:
-        st.sidebar.info("IA: Previsión: 15-20 **Nike Pegasus** en Megapark por la promoción de running.")
+        st.sidebar.info("IA: Previsión: Alta demanda de **zapatillas infantiles de fútbol sala** en Megapark por torneos escolares.")
 
     else:
-        st.sidebar.info("IA: Consultando base de datos de inventario...")
-
+        st.sidebar.info("IA: Consultando inventario por categorías (Hombre/Mujer/Niño)...")
 # --- LÓGICA DE DATOS ---
 if sector == "Hostelería":
     st.title("🍹 IA Smart Retail - Hostelería")
